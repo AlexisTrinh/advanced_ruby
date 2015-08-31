@@ -22,5 +22,23 @@ end
 
 p finished?([2,8,9,6,5,4,5])
 p finished?([1,2,3,4,5,6,7])
-
 p bubble_sort([3,2,1,1,3,6,5,12,23,45,12])
+
+def bubble_sort_by(array)
+	swapped = true
+	sorted_array = array
+	while swapped
+		swapped = false
+		sorted_array.each_with_index do |item,index|
+			break if index == (sorted_array.size - 1)
+			if yield(sorted_array[index], sorted_array[index+1]) > 0
+				sorted_array[index], sorted_array[index+1] = sorted_array[index + 1], sorted_array[index]
+				swapped = true
+			end
+		end
+	end
+	sorted_array
+end
+
+p bubble_sort_by ["hey","youu","console","ha"] {|left,right|
+	left.length - right.length}
